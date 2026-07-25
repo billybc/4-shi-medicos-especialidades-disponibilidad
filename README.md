@@ -53,7 +53,7 @@ Cada estudiante debe construir una capacidad completa del HIS, no una pieza aisl
 | 19 | KEILY FABIOLA ORELLANA MARROQUÍN | `orem6` | Ingreso de resultados de laboratorio |
 | 20 | GERSON GIOVANNI ORELLANA VÉLIZ | `gioore` | Validación de resultados por bioquímico |
 | 21 | DULCE MARÍA PRADO VÁSQUEZ | `Dulce2024` | Alertas críticas y notificaciones internas |
-| 22 | BORIS ALEXANDER QUIROA ORELLANA | `bquiroao` | Auditoría clínica: quién vio/cambió qué |
+| 22 | BORIS ALEXANDER QUIROA ORELLANA | `bquiroao` | Gobernanza y auditoría de movimientos del sistema |
 | 23 | ERICK ROLANDO RAMAZZINI MURALLES | `ErickRamazzini` | Reportes y analytics básicos |
 | 24 | ALBINO SEBASTIAN ROSALES RUANO | `codsebas` | Contratos API: OpenAPI/Postman y documentación técnica |
 | 25 | CINDY MAYTTÉ RUANO CALDERÓN | `cindyruano` | QA, pruebas E2E, CI y guía de despliegue final |
@@ -64,6 +64,7 @@ Cada estudiante debe construir una capacidad completa del HIS, no una pieza aisl
 
 Notas de delimitación:
 
+- El módulo de **Boris Alexander Quiroa Orellana** cubre gobernanza para super admin: bitácora/auditoría de movimientos de usuarios en el sistema, tabla `audit_logs` o ajuste documentado del scaffold existente, interfaz protegida y filtros obligatorios por usuario, módulo y rango libre de fechas (`desde` / `hasta`).
 - El módulo de **Josué David Morales Ramírez** cubre el dashboard base: layout, navegación, tarjetas/resúmenes iniciales, estados vacíos/carga/error y consistencia UI/UX transversal. No reemplaza los reportes analíticos.
 - El módulo de **Lis Ivette Rosales Colindrez** cubre reportes operativos exportables: filtros, tablas, impresión/PDF/CSV y reportes administrativos. Se diferencia del módulo de Erick, que se enfoca en analytics básicos y visualización de indicadores.
 - El módulo de **Hugo David Moscoso Castro** es exploratorio-aplicado: evaluar NativePHP como puente Laravel hacia app móvil/escritorio y entregar un prototipo acotado o informe técnico con decisión de viabilidad.
