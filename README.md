@@ -58,7 +58,7 @@ Cada estudiante debe construir una capacidad completa del HIS, no una pieza aisl
 | 24 | ALBINO SEBASTIAN ROSALES RUANO | `codsebas` | Contratos API: OpenAPI/Postman y documentación técnica |
 | 25 | CINDY MAYTTÉ RUANO CALDERÓN | `cindyruano` | QA, pruebas E2E, CI y guía de despliegue final |
 | 26 | JOSUÉ DAVID MORALES RAMÍREZ | `morales-js` | Dashboard base UI/UX e implementación transversal |
-| 27 | LIS IVETTE ROSALES COLINDREZ | `pendiente-confirmar` | Reportes operativos exportables y filtros administrativos |
+| 27 | LIS IVETTE ROSALES COLINDREZ | `Lis671` | Reportes operativos exportables y filtros administrativos |
 | 28 | DIDHYER ALEXANDER ORTÍZ GUEVARA | `DidhyerOrtiz` | QA funcional, pruebas manuales y matriz de regresión |
 | 29 | HUGO DAVID MOSCOSO CASTRO | `HugoX2024` | Investigación y prototipo NativePHP para extensión móvil/escritorio |
 
