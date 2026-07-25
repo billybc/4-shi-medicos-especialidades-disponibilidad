@@ -57,6 +57,16 @@ Cada estudiante debe construir una capacidad completa del HIS, no una pieza aisl
 | 23 | ERICK ROLANDO RAMAZZINI MURALLES | `ErickRamazzini` | Reportes y analytics básicos |
 | 24 | ALBINO SEBASTIAN ROSALES RUANO | `codsebas` | Contratos API: OpenAPI/Postman y documentación técnica |
 | 25 | CINDY MAYTTÉ RUANO CALDERÓN | `cindyruano` | QA, pruebas E2E, CI y guía de despliegue final |
+| 26 | JOSUÉ DAVID MORALES RAMÍREZ | `morales-js` | Dashboard base UI/UX e implementación transversal |
+| 27 | LIS IVETTE ROSALES COLINDREZ | `pendiente-confirmar` | Reportes operativos exportables y filtros administrativos |
+| 28 | DIDHYER ALEXANDER ORTÍZ GUEVARA | `DidhyerOrtiz` | QA funcional, pruebas manuales y matriz de regresión |
+| 29 | HUGO DAVID MOSCOSO CASTRO | `HugoX2024` | Investigación y prototipo NativePHP para extensión móvil/escritorio |
+
+Notas de delimitación:
+
+- El módulo de **Josué David Morales Ramírez** cubre el dashboard base: layout, navegación, tarjetas/resúmenes iniciales, estados vacíos/carga/error y consistencia UI/UX transversal. No reemplaza los reportes analíticos.
+- El módulo de **Lis Ivette Rosales Colindrez** cubre reportes operativos exportables: filtros, tablas, impresión/PDF/CSV y reportes administrativos. Se diferencia del módulo de Erick, que se enfoca en analytics básicos y visualización de indicadores.
+- El módulo de **Hugo David Moscoso Castro** es exploratorio-aplicado: evaluar NativePHP como puente Laravel hacia app móvil/escritorio y entregar un prototipo acotado o informe técnico con decisión de viabilidad.
 
 ## Flujo obligatorio con worktree
 
