@@ -7,7 +7,7 @@
 | Actor | Descripción |
 |---|---|
 | **Bioquímico** | Actor principal. Revisa, valida o rechaza resultados de laboratorio. |
-| **Técnico de Laboratorio** | Ingresa los resultados al sistema. Recibe notificaciones cuando un resultado es rechazado. |
+| **Técnico de Laboratorio** | Ingresa los resultados al sistema. Recibe notificaciones cuando un resultado es rechazado o corregido. |
 | **Médico** | Consulta los resultados validados desde el expediente del paciente. |
 | **Sistema de Alertas** | Actor secundario automatizado. Genera alertas cuando se confirma un valor crítico. |
 
@@ -15,20 +15,21 @@
 
 | # | Caso de uso | Actor | Descripción breve |
 |---|---|---|---|
-| CU-01 | Ver panel de resultados pendientes | Bioquímico | Lista filtrada de resultados con estado `pendiente` ordenados por prioridad y fecha. |
+| CU-01 | Ver panel de resultados pendientes | Bioquímico | Lista filtrada de resultados con estado pendiente ordenados por prioridad y fecha. |
 | CU-02 | Ver detalle de resultado | Bioquímico | Muestra valores del resultado, rangos de referencia, flags de anormal/crítico, datos del paciente y de la orden. |
-| CU-03 | Validar resultado | Bioquímico | Aprueba el resultado; se guardan `validated_by`, `validated_at` y cambia estado a `validado`. |
+| CU-03 | Validar resultado | Bioquímico | Aprueba el resultado; se guardan validated_by, validated_at y cambia estado a validado. |
 | CU-04 | Rechazar resultado | Bioquímico | Rechaza el resultado con un motivo; se notifica al técnico para corrección. |
 | CU-05 | Confirmar valor crítico | Bioquímico | Al validar un resultado crítico, el bioquímico confirma la criticalidad y se genera una alerta. |
 | CU-06 | Consultar historial de validaciones | Bioquímico | Lista resultados previamente validados o rechazados por el bioquímico, con filtros por fecha y paciente. |
+| CU-07 | Revisar resultado corregido | Bioquímico | Revisa un resultado que fue rechazado previamente y corregido por el técnico. |
+| CU-08 | Revalidar resultado corregido | Bioquímico | Vuelve a validar o rechazar un resultado que pasó por corrección. |
 
 ### Alcance y límites
 
-Ver [`narrativa-alcance.md`](./narrativa-alcance.md).
+Ver [narrativa-alcance.md](./narrativa-alcance.md).
 
 ### Diagrama UML
 
 ![Diagrama de casos de uso](./casos-de-uso.png)
 
-> El diagrama se genera desde `casos-de-uso.puml` usando PlantUML.
-> También disponible en: https://www.plantuml.com/plantuml/uml/sozlqCRnJylv
+> Diagrama generado desde `casos-de-uso.puml` usando PlantUML.

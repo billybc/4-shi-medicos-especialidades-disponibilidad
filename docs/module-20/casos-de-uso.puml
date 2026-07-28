@@ -14,6 +14,8 @@ rectangle "Validación de Resultados de Laboratorio" {
   usecase "CU-04: Rechazar\nresultado" as UC04
   usecase "CU-05: Confirmar\nvalor crítico" as UC05
   usecase "CU-06: Consultar\nhistorial de validaciones" as UC06
+  usecase "CU-07: Revisar resultado\ncorregido (rechazo previo)" as UC07
+  usecase "CU-08: Revalidar resultado\ncorregido" as UC08
 }
 
 bio --> UC01
@@ -22,8 +24,11 @@ bio --> UC03
 bio --> UC04
 bio --> UC05
 bio --> UC06
+bio --> UC07
+bio --> UC08
 
 UC03 ..> med : resultado validado\ndisponible en EMR
 UC04 ..> tec : notificación\nde rechazo
 UC05 ..> alertas : generar alerta\ncrítica
+UC07 ..> tec : solicitar\ncorrección
 @enduml
