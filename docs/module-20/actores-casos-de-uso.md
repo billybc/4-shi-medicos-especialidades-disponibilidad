@@ -1,8 +1,6 @@
-# Módulo 20 — Validación de resultados por bioquímico
+# Módulo 20 — Actores y casos de uso
 
-## Semana 1: Actores, alcance y casos de uso
-
-### Actores
+## Actores
 
 | Actor | Descripción |
 |---|---|
@@ -11,7 +9,7 @@
 | **Médico** | Consulta los resultados validados desde el expediente del paciente. |
 | **Sistema de Alertas** | Actor secundario automatizado. Genera alertas cuando se confirma un valor crítico. |
 
-### Casos de uso
+## Casos de uso
 
 | # | Caso de uso | Actor | Descripción breve |
 |---|---|---|---|
@@ -24,16 +22,10 @@
 | CU-07 | Revisar resultado corregido | Bioquímico | Revisa un resultado que fue rechazado previamente y corregido por el técnico. |
 | CU-08 | Revalidar resultado corregido | Bioquímico | Vuelve a validar o rechazar un resultado que pasó por corrección. |
 
-### Actores y casos de uso
+## Diagrama UML
 
-Detalle completo en [actores-casos-de-uso.md](./actores-casos-de-uso.md).
+Ver [`casos-de-uso.puml`](./casos-de-uso.puml) — imagen generada en [`casos-de-uso.png`](./casos-de-uso.png).
 
-### Alcance y límites
+## Alcance y límites
 
-Ver [narrativa-alcance.md](./narrativa-alcance.md).
-
-### Diagrama UML
-
-![Diagrama de casos de uso](./casos-de-uso.png)
-
-> Diagrama generado desde `casos-de-uso.puml` usando PlantUML.
+Ver [`narrativa-alcance.md`](./narrativa-alcance.md).
