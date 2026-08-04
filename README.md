@@ -156,8 +156,8 @@ El plan completo está en [`docs/weekly-plan.md`](docs/weekly-plan.md).
 
 | Semana | Entrega principal del módulo | Evidencia esperada |
 |---:|---|---|
-| 1 | Diagnóstico, actores y casos de uso del módulo. | Diagrama UML de casos de uso + narrativa breve. |
-| 2 | RF/RNF, criterios de aceptación y diseño inicial. | Tabla RF/RNF + ejemplo de al menos un principio SOLID aplicado al módulo, usando como fuente `https://mvpcluster.com/diseno-de-software-2/`. |
+| 1 | Diagnóstico, actores y casos de uso del módulo. | [Diagrama UML de casos de uso + narrativa de alcance](docs/semana-01-actores-alcance-casos-de-uso.md). |
+| 2 | RF/RNF, criterios de aceptación y diseño inicial. | [Tabla RF/RNF + criterios de aceptación + ejemplo SOLID](docs/semana-02-rf-rnf-criterios-aceptacion-solid.md). |
 | 3 | Vista arquitectónica del módulo. | Diagrama C4/UML o vista de componentes de alto nivel. |
 | 4 | Diseño por capas y responsabilidades. | UI, API, lógica, persistencia y objetos reutilizables. |
 | 5 | Contrato API preliminar y plan de integración. | Endpoints, payloads, errores, permisos, rama, worktree y PR. |
