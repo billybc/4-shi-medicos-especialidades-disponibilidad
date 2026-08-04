@@ -111,33 +111,46 @@ flowchart TD
 ## 5. Diagrama UML de Casos de Uso
 
 ```mermaid
-usecaseDiagram
-    actor "SuperAdmin / IT Admin" as Admin
-    actor "Usuario Autenticado\n(Médico, Enfermera, Lab, etc.)" as User
-    actor "Middleware API\n(Laravel Guard)" as MW
-    actor "Router Guard\n(Vue 3 Router)" as VG
+flowchart LR
+    %% ── Actores ────────────────────────────────────────────────
+    Admin(["👤 SuperAdmin / IT Admin"])
+    User(["👤 Usuario Autenticado\nMédico · Enfermera · Lab · Recepcionista"])
+    MW(["⚙️ Middleware API\nLaravel Guard"])
+    VG(["⚙️ Router Guard\nVue 3 Router"])
 
-    rectangle "Sistema Hospitalario Integrado (HIS) — Módulo RBAC" {
-        usecase "CU-RBAC-01: Administrar Roles del Tenant" as CU1
-        usecase "CU-RBAC-02: Gestionar Matriz de Permisos por Rol" as CU2
-        usecase "CU-RBAC-03: Asignar Roles y Permisos a Usuarios" as CU3
-        usecase "CU-RBAC-04: Validar Acceso en Endpoints API" as CU4
-        usecase "CU-RBAC-05: Proteger Navegación y UI en Frontend" as VG1
-        usecase "CU-RBAC-06: Consultar Permisos del Usuario Activo" as CU6
-    }
+    %% ── Sistema: Módulo RBAC ───────────────────────────────────
+    subgraph HIS ["🏥 Sistema Hospitalario Integrado — Módulo RBAC"]
+        direction TB
+        CU1(["CU-RBAC-01\nAdministrar Roles del Tenant"])
+        CU2(["CU-RBAC-02\nGestionar Matriz de Permisos"])
+        CU3(["CU-RBAC-03\nAsignar Roles y Permisos a Usuarios"])
+        CU4(["CU-RBAC-04\nValidar Acceso en Endpoints API"])
+        CU5(["CU-RBAC-05\nProteger Navegación y UI en Frontend"])
+        CU6(["CU-RBAC-06\nConsultar Permisos del Usuario Activo"])
+    end
 
+    %% ── Relaciones Actor → Caso de Uso ─────────────────────────
     Admin --> CU1
     Admin --> CU2
     Admin --> CU3
-    
-    User --> CU6
-    
-    MW --> CU4
-    VG --> VG1
 
-    CU3 ..> CU2 : <<include>>
-    CU4 ..> CU6 : <<include>>
-    VG1 ..> CU6 : <<include>>
+    User --> CU6
+
+    MW  --> CU4
+    VG  --> CU5
+
+    %% ── Relaciones Include ──────────────────────────────────────
+    CU3 -. "«include»" .-> CU2
+    CU4 -. "«include»" .-> CU6
+    CU5 -. "«include»" .-> CU6
+
+    %% ── Estilos ─────────────────────────────────────────────────
+    classDef actor    fill:#1e3a5f,stroke:#3b82f6,color:#e0f2fe,rx:50
+    classDef usecase  fill:#1e293b,stroke:#64748b,color:#f8fafc
+    classDef system   fill:#0f172a,stroke:#334155,color:#94a3b8
+
+    class Admin,User,MW,VG actor
+    class CU1,CU2,CU3,CU4,CU5,CU6 usecase
 ```
 
 ---
