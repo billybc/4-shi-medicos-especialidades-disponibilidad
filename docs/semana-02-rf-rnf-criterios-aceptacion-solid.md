@@ -5,7 +5,7 @@
 **Sistema:** Sistema Hospitalario Integrado (HIS)  
 **Estudiante:** Luis David Aroche Contreras (`Luis890D`)  
 **Rama de trabajo:** `feature/asii-02-rbac-roles-permisos-y-proteccion-de-rutas-luis890d`  
-**Worktree actual:** `shi-documentacion-rbac`  
+**Worktree actual:** `shi-documentacion-rbac-Luis-Aroche`  
 **Fuente de Referencia SOLID:** [MVP Cluster — Diseño de Software 2](https://mvpcluster.com/diseno-de-software-2/)
 
 ---

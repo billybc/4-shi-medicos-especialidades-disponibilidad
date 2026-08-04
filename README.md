@@ -71,18 +71,18 @@ Notas de delimitación:
 
 ## Flujo obligatorio con worktree
 
-Nunca trabajes directamente sobre `main`. Cada módulo debe desarrollarse en su propio worktree y rama feature desde `origin/develop`.
+Nunca trabajes directamente sobre `main`. Cada módulo debe desarrollarse en su propio worktree y rama feature desde `origin/shi-documentacion-rbac-Luis-Aroche`.
 
 ```bash
 git fetch origin
-git worktree add ../shi-asii-XX-slug -b feature/asii-XX-slug-usuario origin/develop
+git worktree add ../shi-asii-XX-slug -b feature/asii-XX-slug-usuario origin/shi-documentacion-rbac-Luis-Aroche
 cd ../shi-asii-XX-slug
 ```
 
 Ejemplo de nombre:
 
 ```bash
-git worktree add ../shi-asii-03-pacientes -b feature/asii-03-pacientes-glendi20 origin/develop
+git worktree add ../shi-asii-03-pacientes -b feature/asii-03-pacientes-glendi20 origin/shi-documentacion-rbac-Luis-Aroche
 cd ../shi-asii-03-pacientes
 ```
 
@@ -93,7 +93,7 @@ Reglas estrictas:
 - No mezclar módulos diferentes en una misma rama.
 - No abrir PR sin evidencia de análisis, diseño, implementación y pruebas.
 - No modificar archivos de otros módulos sin coordinación previa.
-- Todo PR debe apuntar a `develop`, no a `main`.
+- Todo PR debe apuntar a `shi-documentacion-rbac-Luis-Aroche`, no a `main`.
 
 Guía detallada: [`docs/worktree-guide.md`](docs/worktree-guide.md).
 
