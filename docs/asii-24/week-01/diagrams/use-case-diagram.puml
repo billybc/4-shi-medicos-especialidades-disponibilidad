@@ -1,0 +1,62 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+actor "Usuario autenticado\ndel HIS" as AuthUser
+actor "Admin" as Admin
+actor "Médico" as Doctor
+actor "Enfermera" as Nurse
+actor "Técnico de laboratorio\n(rol técnico: TecnicoLab)" as LabTech
+actor "Recepcionista" as Receptionist
+actor "Control de acceso existente del HIS\n(JWT, tenant y RBAC)" as AccessControl
+
+AuthUser <|-- Admin
+AuthUser <|-- Doctor
+AuthUser <|-- Nurse
+AuthUser <|-- LabTech
+AuthUser <|-- Receptionist
+
+rectangle "ASII-24 — Centro de documentación y manuales por rol" {
+  usecase "UC-01\nConsultar documentación\ndisponible" as UC01
+  usecase "UC-02\nBuscar y filtrar\ndocumentación" as UC02
+  usecase "UC-03\nVisualizar documento\no manual" as UC03
+  usecase "UC-04\nDescargar documento\no manual" as UC04
+  usecase "UC-05\nPublicar documento\no manual" as UC05
+  usecase "UC-06\nAsignar visibilidad\npor rol" as UC06
+  usecase "UC-07\nActualizar versión\ndel documento" as UC07
+  usecase "UC-08\nArchivar documento" as UC08
+  usecase "UC-09\nVerificar identidad,\ntenant y roles" as UC09
+  usecase "UC-10\nValidar información\nde publicación" as UC10
+}
+
+AuthUser --> UC01
+AuthUser --> UC02
+AuthUser --> UC03
+AuthUser --> UC04
+
+Admin --> UC05
+Admin --> UC07
+Admin --> UC08
+
+AccessControl --> UC09
+
+UC01 ..> UC09 : <<include>>
+UC02 ..> UC09 : <<include>>
+UC03 ..> UC09 : <<include>>
+UC04 ..> UC09 : <<include>>
+UC05 ..> UC06 : <<include>>
+UC05 ..> UC09 : <<include>>
+UC05 ..> UC10 : <<include>>
+UC07 ..> UC09 : <<include>>
+UC07 ..> UC10 : <<include>>
+UC08 ..> UC09 : <<include>>
+
+note bottom of UC09
+Existing HIS base capability.
+The ASII-24 module consumes it;
+it does not redefine authentication.
+end note
+
+@enduml
