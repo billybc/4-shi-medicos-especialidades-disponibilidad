@@ -8,7 +8,7 @@
 |---|---|---|---|
 | RF-01 | Ver panel de resultados pendientes de validación | CU-01 | Alta |
 | RF-02 | Ver detalle del resultado con valores y rangos de referencia | CU-02 | Alta |
-| RF-03 | Validar un resultado, guardando `validated_by` y `validated_at` | CU-03 | Alta |
+| RF-03 | Validar un resultado, guardando `validated_by` y `validated_at`, y actualizando el estado del orden y del item correspondientes | CU-03 | Alta |
 | RF-04 | Rechazar un resultado con motivo obligatorio | CU-04 | Alta |
 | RF-05 | Confirmar un valor crítico y generar alerta | CU-05 | Media |
 | RF-06 | Consultar historial de validaciones con filtros por fecha y paciente | CU-06 | Media |
@@ -34,13 +34,13 @@
 
 | ID | Criterio de aceptación |
 |---|---|
-| RF-01 | El bioquímico ve la lista de resultados con estado `pendiente` ordenados por prioridad y fecha. |
+| RF-01 | El bioquímico ve la lista de resultados sin `validated_at` (pendientes de validación) ordenados por prioridad y fecha. |
 | RF-02 | El detalle muestra valores del resultado, rangos de referencia, flags anormal/crítico y datos del paciente. |
-| RF-03 | Tras validar, el resultado muestra `validated_by`, `validated_at` y estado `validado`. |
+| RF-03 | Tras validar, el resultado muestra `validated_by` y `validated_at`, y el item pasa a `resultado_listo`. |
 | RF-04 | Un resultado rechazado sin motivo no se acepta; el motivo queda registrado y visible. |
 | RF-05 | Al confirmar un valor crítico se crea una alerta en `critical_alerts`. |
 | RF-06 | El historial permite filtrar por rango de fechas y paciente, y muestra el validador. |
-| RF-07 | Un resultado corregido vuelve a estado `pendiente` y puede revalidarse (CU-08). |
+| RF-07 | Un resultado rechazado vuelve a `pendiente` en el item; al revalidarse pasa a `resultado_listo` (CU-08). |
 | RF-08 | Un usuario sin rol Bioquímico recibe error 403 al intentar validar. |
 | RF-09 | Un tenant no puede ver ni validar resultados de otro tenant. |
 | RF-10 | Cada acción de validación o rechazo queda trazada con usuario y fecha. |

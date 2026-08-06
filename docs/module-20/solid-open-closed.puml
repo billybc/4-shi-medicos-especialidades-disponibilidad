@@ -14,7 +14,7 @@ class "ValidacionNormal" as Normal
 class "ValidacionAnormal" as Anormal
 class "ValidacionCritica" as Critica
 
-Servicio ..> ResultadoValidator : depende de la\nabstracción (mia inversión)
+Servicio ..> ResultadoValidator : depende de la\nabstracción (inversión\nde dependencias)
 ResultadoValidator <|.. ValidacionNormal
 ResultadoValidator <|.. ValidacionAnormal
 ResultadoValidator <|.. ValidacionCritica
