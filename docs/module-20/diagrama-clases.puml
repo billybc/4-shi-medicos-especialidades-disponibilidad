@@ -1,82 +1,90 @@
 @startuml
-class LabOrder {
-  +id: bigint
-  +patient_id: bigint
-  +code: varchar(20)
-  +priority: enum
-  +status: enum
-  +clinical_info: text
-  +ordered_at: datetime
+skinparam classAttributeIconSize 0
+
+class "users" as User {
+  {field} id : bigint
+  {field} name : varchar
 }
 
-class LabOrderItem {
-  +id: bigint
-  +lab_order_id: bigint
-  +lab_test_id: bigint
-  +status: enum
+class "patients" as Patient {
+  {field} id : bigint
+  {field} full_name : varchar
 }
 
-class LabTest {
-  +id: bigint
-  +name: varchar(100)
-  +category: varchar(100)
-  +unit: varchar(50)
-  +reference_min: decimal
-  +reference_max: decimal
-  +critical_min: decimal
-  +critical_max: decimal
-  +active: bool
+class "lab_orders" as LabOrder {
+  {field} id : bigint
+  {field} patient_id : bigint
+  {field} ordered_by : bigint
+  {field} code : varchar(20)
+  {field} priority : enum
+  {field} status : enum
+  {field} clinical_info : text
 }
 
-class Sample {
-  +id: bigint
-  +lab_order_id: bigint
-  +barcode: varchar(50)
-  +sample_type: enum
-  +status: enum
+class "lab_order_items" as LabOrderItem {
+  {field} id : bigint
+  {field} lab_order_id : bigint
+  {field} lab_test_id : bigint
+  {field} status : enum
 }
 
-class LabResult {
-  +id: bigint
-  +lab_order_item_id: bigint
-  +sample_id: bigint
-  +entered_by: bigint
-  +validated_by: bigint
-  +numeric_value: decimal
-  +text_value: varchar(500)
-  +is_critical: bool
-  +is_abnormal: bool
-  +validated_at: datetime
-  +sent_to_emr: bool
+class "lab_tests" as LabTest {
+  {field} id : bigint
+  {field} name : varchar(100)
+  {field} category : varchar(100)
+  {field} unit : varchar(50)
+  {field} reference_min : decimal
+  {field} reference_max : decimal
+  {field} critical_min : decimal
+  {field} critical_max : decimal
+  {field} active : bool
 }
 
-class CriticalAlert {
-  +id: bigint
-  +lab_result_id: bigint
-  +patient_id: bigint
-  +alert_type: enum
-  +message: text
-  +acknowledged: bool
+class "samples" as Sample {
+  {field} id : bigint
+  {field} lab_order_id : bigint
+  {field} received_by : bigint
+  {field} barcode : varchar(50)
+  {field} sample_type : enum
+  {field} status : enum
 }
 
-class Patient {
-  +id: bigint
-  +full_name: varchar
+class "lab_results" as LabResult {
+  {field} id : bigint
+  {field} lab_order_item_id : bigint
+  {field} sample_id : bigint
+  {field} entered_by : bigint
+  {field} validated_by : bigint
+  {field} numeric_value : decimal
+  {field} text_value : varchar(500)
+  {field} is_critical : bool
+  {field} is_abnormal : bool
+  {field} validated_at : datetime
+  {field} sent_to_emr : bool
 }
 
-class User {
-  +id: bigint
-  +name: varchar
+class "critical_alerts" as CriticalAlert {
+  {field} id : bigint
+  {field} lab_result_id : bigint
+  {field} patient_id : bigint
+  {field} alert_type : enum
+  {field} message : text
+  {field} acknowledged : bool
 }
 
-LabOrder "1" -- "1..*" LabOrderItem
-LabOrderItem "*" -- "1" LabTest
-LabOrder "1" -- "0..*" Sample
-LabOrderItem "1" -- "0..1" LabResult
-Sample "1" -- "0..*" LabResult
-LabResult "1" -- "0..1" CriticalAlert
-LabOrder "*" -- "1" Patient
-LabResult "1" -- "1" User : entered_by
-LabResult "1" -- "0..1" User : validated_by
-CriticalAlert "*" -- "1" User : notified_user_id
+' Relaciones de laboratorio
+LabOrder "1" *-- "1..*" LabOrderItem : contiene
+LabOrderItem "*" *-- "1" LabTest : referencia
+LabOrder "1" o-- "0..*" Sample : recolecta
+LabOrderItem "1" o-- "0..1" LabResult : produce
+Sample "1" o-- "0..*" LabResult : asociado a
+LabResult "1" o-- "0..1" CriticalAlert : genera
+
+' Relaciones con otras entidades
+Patient "1" o-- "*" LabOrder : posee
+User "1" o-- "*" LabResult : entered_by
+User "1" o-- "0..*" LabResult : validated_by
+User "1" o-- "*" Sample : received_by
+Patient "1" o-- "*" CriticalAlert : recibe
+User "1" o-- "*" CriticalAlert : notified_user
 @enduml

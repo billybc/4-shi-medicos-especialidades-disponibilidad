@@ -27,8 +27,12 @@ bio --> UC06
 bio --> UC07
 bio --> UC08
 
+UC03 ..> UC02 : include
+UC04 ..> UC02 : include
+UC03 ..> UC05 : extend
+
 UC03 ..> med : resultado validado\ndisponible en EMR
 UC04 ..> tec : notificación\nde rechazo
 UC05 ..> alertas : generar alerta\ncrítica
-UC07 ..> tec : solicitar\ncorrección
+UC07 ..> tec : resultado\ncorregido
 @enduml
