@@ -9,25 +9,16 @@
 ## Estado de la entrega
 
 - Phase 1 completada
-- Phase 2 pendiente de autorización del usuario
+- Phase 2 completada
+- Semana 1 completada con alcance, actores, casos de uso, actividad, secuencia y trazabilidad
 
-## Entregables de Phase 1
+## Entregables
 
-- [Alcance, actores y casos de uso](01-scope-actors-use-cases.md)
-- [Diagrama UML de casos de uso](diagrams/use-case-diagram.puml)
+- [Alcance, actores, casos de uso y diagrama integrado](01-scope-actors-use-cases.md)
+- [Actividad, secuencia, excepciones y trazabilidad](02-activity-sequence-traceability.md)
 
-## Entregables de Phase 2
-
-- [Actividad, secuencia y trazabilidad](02-activity-sequence-traceability.md)
-- [Diagrama UML de actividad](diagrams/activity-diagram.puml)
-- [Diagrama UML de secuencia](diagrams/sequence-diagram.puml)
+Los tres diagramas están integrados directamente en los documentos Markdown mediante Mermaid para facilitar su visualización en GitHub.
 
 ## Nota de alcance
 
 El repositorio ya incluye capacidades base del HIS para autenticación JWT, tenant por `X-Tenant-ID` y RBAC con roles semilla. El centro de documentación y manuales por rol es un diseño propuesto para ASII-24 y no debe leerse como una funcionalidad ya implementada.
-
-## Estado de la Semana 1
-
-- Phase 1 completada
-- Phase 2 completada
-- La evidencia incluye alcance, actores, casos de uso, actividad, secuencia y trazabilidad

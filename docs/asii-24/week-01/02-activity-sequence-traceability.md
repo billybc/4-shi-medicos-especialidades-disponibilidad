@@ -10,8 +10,7 @@ El alcance aprobado cubre publicación, consulta, visualización, descarga, actu
 
 ## 3. Diagrama UML de actividad
 
-El diagrama fuente reproducible está en [diagrams/activity-diagram.puml](diagrams/activity-diagram.puml). No se generó SVG porque no hay un renderer PlantUML local compatible disponible en este entorno.
-
+![Diagrama UML de actividad del módulo ASII-24](diagrams/activity-diagram.svg)
 ## 4. Decisiones, excepciones y resultados del flujo
 
 - `ACT-ACC-01` valida el JWT o contexto de autenticación.
@@ -45,8 +44,7 @@ Resultados modelados:
 
 ## 6. Diagrama UML de secuencia
 
-El diagrama fuente reproducible está en [diagrams/sequence-diagram.puml](diagrams/sequence-diagram.puml). No se generó SVG porque no hay un renderer PlantUML local compatible disponible en este entorno.
-
+![Diagrama UML de secuencia del módulo ASII-24](diagrams/sequence-diagram.svg)
 ## 7. Validaciones y respuestas modeladas
 
 - `SEQ-ACC-01` envía JWT y `X-Tenant-ID`.

@@ -189,8 +189,7 @@ El límite funcional de esta evidencia incluye la consulta, búsqueda, visualiza
 
 ## 13. Diagrama UML de casos de uso
 
-El diagrama fuente reproducible está en [diagrams/use-case-diagram.puml](diagrams/use-case-diagram.puml). No se generó SVG porque no hay un renderer PlantUML local compatible disponible en este entorno.
-
+![Diagrama UML de casos de uso del módulo ASII-24](diagrams/use-case-diagram.svg)
 ## 14. Decisiones y supuestos de diseño
 
 - Se mantiene la distinción entre capacidades base ya verificadas del HIS y el centro documental propuesto para ASII-24.
