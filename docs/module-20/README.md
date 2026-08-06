@@ -32,8 +32,18 @@ Detalle completo en [actores-casos-de-uso.md](./actores-casos-de-uso.md).
 
 Ver [narrativa-alcance.md](./narrativa-alcance.md).
 
-### Diagrama UML
+### Diagramas UML
+
+**Diagrama de casos de uso** (`casos-de-uso.puml`):
 
 ![Diagrama de casos de uso](./casos-de-uso.png)
 
-> Diagrama generado desde `casos-de-uso.puml` usando PlantUML.
+**Diagrama de secuencia** — flujo de validación/rechazo (`diagrama-secuencia.puml`):
+
+![Diagrama de secuencia](./diagrama-secuencia.png)
+
+**Diagrama de clases** — modelo de laboratorio (`diagrama-clases.puml`):
+
+![Diagrama de clases](./diagrama-clases.png)
+
+> Todos los diagramas se generan desde sus archivos `.puml` usando PlantUML.

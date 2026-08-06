@@ -1,0 +1,82 @@
+@startuml
+class LabOrder {
+  +id: bigint
+  +patient_id: bigint
+  +code: varchar(20)
+  +priority: enum
+  +status: enum
+  +clinical_info: text
+  +ordered_at: datetime
+}
+
+class LabOrderItem {
+  +id: bigint
+  +lab_order_id: bigint
+  +lab_test_id: bigint
+  +status: enum
+}
+
+class LabTest {
+  +id: bigint
+  +name: varchar(100)
+  +category: varchar(100)
+  +unit: varchar(50)
+  +reference_min: decimal
+  +reference_max: decimal
+  +critical_min: decimal
+  +critical_max: decimal
+  +active: bool
+}
+
+class Sample {
+  +id: bigint
+  +lab_order_id: bigint
+  +barcode: varchar(50)
+  +sample_type: enum
+  +status: enum
+}
+
+class LabResult {
+  +id: bigint
+  +lab_order_item_id: bigint
+  +sample_id: bigint
+  +entered_by: bigint
+  +validated_by: bigint
+  +numeric_value: decimal
+  +text_value: varchar(500)
+  +is_critical: bool
+  +is_abnormal: bool
+  +validated_at: datetime
+  +sent_to_emr: bool
+}
+
+class CriticalAlert {
+  +id: bigint
+  +lab_result_id: bigint
+  +patient_id: bigint
+  +alert_type: enum
+  +message: text
+  +acknowledged: bool
+}
+
+class Patient {
+  +id: bigint
+  +full_name: varchar
+}
+
+class User {
+  +id: bigint
+  +name: varchar
+}
+
+LabOrder "1" -- "1..*" LabOrderItem
+LabOrderItem "*" -- "1" LabTest
+LabOrder "1" -- "0..*" Sample
+LabOrderItem "1" -- "0..1" LabResult
+Sample "1" -- "0..*" LabResult
+LabResult "1" -- "0..1" CriticalAlert
+LabOrder "*" -- "1" Patient
+LabResult "1" -- "1" User : entered_by
+LabResult "1" -- "0..1" User : validated_by
+CriticalAlert "*" -- "1" User : notified_user_id
+@enduml
