@@ -32,7 +32,12 @@ Detalle completo en [actores-casos-de-uso.md](./actores-casos-de-uso.md).
 
 Ver [narrativa-alcance.md](./narrativa-alcance.md).
 
-### Diagramas UML
+## Semana 2: Requerimientos y SOLID
+
+- [Requerimientos funcionales y no funcionales](./rf-rnf.md)
+- [Ejemplo SOLID (Open/Closed)](./solid.md)
+
+## Diagramas UML
 
 **Diagrama de casos de uso** (`casos-de-uso.puml`):
 
