@@ -1,0 +1,41 @@
+@startuml
+actor "Técnico de Laboratorio" as tec
+actor "Bioquímico" as bio
+participant "Sistema\n(API)" as api
+participant "LabResult" as result
+participant "LabOrder" as order
+participant "CriticalAlert" as alert
+participant "Médico" as med
+
+== Consulta de pendientes ==
+bio -> api : 1. GET /lab/results?status=pendiente
+api -> api : 2. Filtrar por tenant + rol\nBioquimico (permiso results.view)
+api --> bio : 3. Lista de resultados pendientes
+
+== Validación ==
+bio -> api : 2. POST /lab/results/{id}/validate
+api -> result : 3. Verificar permisos y estado\n(no validado aún)
+api -> result : 4. Marcar validado\n(validated_by, validated_at)
+api -> order : 5. Actualizar estado de\norden a completada
+api -> api : 6. evaluar valor crítico\n(is_critical, is_abnormal)
+alt valor crítico confirmado
+    api -> alert : 7. Crear critical_alert
+    alert -> med : 8. Notificar valor crítico
+    api --> bio : 9. Resultado validado\n+ alerta generada
+else resultado normal
+    api --> bio : 9. Resultado validado
+end
+api -> result : 10. sent_to_emr = true
+bio -> api : 11. GET /lab/results/{id}
+api --> bio : 12. Detalle con validado
+
+== Rechazo ==
+bio -> api : 13. POST /lab/results/{id}/reject\n{ motivo }
+api -> result : 14. Registrar rechazo\n(estado pendiente, motivo)
+api --> tec : 15. Notificación de rechazo
+tec -> api : 16. Corrige resultado
+api -> result : 17. Actualizar\nvalores y estado a pendiente
+bio -> api : 18. Revalidar (CU-08)
+api -> result : 19. Validar corrección
+api --> bio : 20. Resultado revalidado
+@enduml

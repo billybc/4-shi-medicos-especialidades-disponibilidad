@@ -1,0 +1,90 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class "users" as User {
+  {field} id : bigint
+  {field} name : varchar
+}
+
+class "patients" as Patient {
+  {field} id : bigint
+  {field} full_name : varchar
+}
+
+class "lab_orders" as LabOrder {
+  {field} id : bigint
+  {field} patient_id : bigint
+  {field} ordered_by : bigint
+  {field} code : varchar(20)
+  {field} priority : enum
+  {field} status : enum
+  {field} clinical_info : text
+}
+
+class "lab_order_items" as LabOrderItem {
+  {field} id : bigint
+  {field} lab_order_id : bigint
+  {field} lab_test_id : bigint
+  {field} status : enum
+}
+
+class "lab_tests" as LabTest {
+  {field} id : bigint
+  {field} name : varchar(100)
+  {field} category : varchar(100)
+  {field} unit : varchar(50)
+  {field} reference_min : decimal
+  {field} reference_max : decimal
+  {field} critical_min : decimal
+  {field} critical_max : decimal
+  {field} active : bool
+}
+
+class "samples" as Sample {
+  {field} id : bigint
+  {field} lab_order_id : bigint
+  {field} received_by : bigint
+  {field} barcode : varchar(50)
+  {field} sample_type : enum
+  {field} status : enum
+}
+
+class "lab_results" as LabResult {
+  {field} id : bigint
+  {field} lab_order_item_id : bigint
+  {field} sample_id : bigint
+  {field} entered_by : bigint
+  {field} validated_by : bigint
+  {field} numeric_value : decimal
+  {field} text_value : varchar(500)
+  {field} is_critical : bool
+  {field} is_abnormal : bool
+  {field} validated_at : datetime
+  {field} sent_to_emr : bool
+}
+
+class "critical_alerts" as CriticalAlert {
+  {field} id : bigint
+  {field} lab_result_id : bigint
+  {field} patient_id : bigint
+  {field} alert_type : enum
+  {field} message : text
+  {field} acknowledged : bool
+}
+
+' Relaciones de laboratorio
+LabOrder "1" *-- "1..*" LabOrderItem : contiene
+LabOrderItem "*" *-- "1" LabTest : referencia
+LabOrder "1" o-- "0..*" Sample : recolecta
+LabOrderItem "1" o-- "0..1" LabResult : produce
+Sample "1" o-- "0..*" LabResult : asociado a
+LabResult "1" o-- "0..1" CriticalAlert : genera
+
+' Relaciones con otras entidades
+Patient "1" o-- "*" LabOrder : posee
+User "1" o-- "*" LabResult : entered_by
+User "1" o-- "0..*" LabResult : validated_by
+User "1" o-- "*" Sample : received_by
+Patient "1" o-- "*" CriticalAlert : recibe
+User "1" o-- "*" CriticalAlert : notified_user
+@enduml

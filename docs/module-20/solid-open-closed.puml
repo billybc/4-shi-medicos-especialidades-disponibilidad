@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+
+class "ServicioValidacion\n(alto nivel)" as Servicio {
+  + validarResultado(ResultadoValidator, LabResult): ResultadoValidacion
+}
+
+interface "ResultadoValidator" as IValidator {
+  + {abstract} validar(LabResult): ResultadoValidacion
+}
+
+class "ValidacionNormal" as Normal
+class "ValidacionAnormal" as Anormal
+class "ValidacionCritica" as Critica
+
+Servicio ..> ResultadoValidator : depende de la\nabstracción (inversión\nde dependencias)
+ResultadoValidator <|.. ValidacionNormal
+ResultadoValidator <|.. ValidacionAnormal
+ResultadoValidator <|.. ValidacionCritica
+
+note right of ResultadoValidator
+  Open/Closed: se agregan
+  nuevos tipos de validación
+  SIN modificar esta interfaz
+  ni el servicio.
+end note
+@enduml
