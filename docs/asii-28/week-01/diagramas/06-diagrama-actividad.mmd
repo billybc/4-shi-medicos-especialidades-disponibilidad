@@ -1,0 +1,96 @@
+%% ASII-28 - Semana 1: actividad
+flowchart TD
+    INICIO((Inicio))
+
+    A1["ACT-01 Analista QA:<br/>Diseñar caso manual y vincular requisito"]
+    D1{"¿El caso contiene requisito,<br/>pasos y resultado esperado?"}
+    E02["E-02 Caso incompleto:<br/>rechazar y solicitar corrección"]
+
+    A2["ACT-02 Analista QA:<br/>Planificar campaña, alcance y versión"]
+    A3["ACT-03 Gestor QA:<br/>Validar ambiente, tenant, rol y datos ficticios"]
+    D2{"¿Precondiciones disponibles?"}
+    E01["E-01 Campaña bloqueada:<br/>registrar causa verificable"]
+
+    A4["ACT-04 Analista QA:<br/>Seleccionar y ejecutar caso"]
+    HIS1["HIS bajo prueba:<br/>Devolver resultado observado"]
+    A5["ACT-05 Gestor QA:<br/>Registrar ejecución y evidencia"]
+
+    D3{"¿Resultado observado<br/>coincide con el esperado?"}
+    OK["Marcar ejecución como APROBADA"]
+
+    REPETIR["Analista QA:<br/>Repetir condiciones relevantes"]
+    D4{"¿El fallo es reproducible?"}
+    E03["E-03 Marcar como BLOQUEADO:<br/>no confirmar defecto"]
+
+    A6["ACT-06 Gestor QA:<br/>Crear defecto trazable"]
+    NOTIFICAR["Notificar al responsable del módulo"]
+    DEV1["Responsable del módulo:<br/>Analizar y corregir defecto"]
+    DEV2["Notificar versión corregida"]
+
+    A7["ACT-07 Analista QA:<br/>Re-probar la corrección"]
+    HIS2["HIS bajo prueba:<br/>Devolver resultado de re-prueba"]
+    EVID2["Registrar nueva evidencia"]
+
+    D5{"¿Corrección verificada?"}
+    CERRAR["Cerrar defecto"]
+    E04["E-04 Reabrir defecto:<br/>adjuntar versión y evidencia nuevas"]
+
+    D6{"¿Quedan casos aplicables?"}
+    A8["ACT-08 Gestor QA:<br/>Calcular cobertura y cerrar campaña"]
+    REV["Revisor de calidad:<br/>Consultar trazabilidad, defectos y evidencias"]
+
+    FIN((Fin))
+
+    INICIO --> A1
+    A1 --> D1
+
+    D1 -- No --> E02
+    E02 --> A1
+
+    D1 -- Sí --> A2
+    A2 --> A3
+    A3 --> D2
+
+    D2 -- No --> E01
+    E01 --> FIN
+
+    D2 -- Sí --> A4
+    A4 --> HIS1
+    HIS1 --> A5
+    A5 --> D3
+
+    D3 -- Sí --> OK
+    OK --> D6
+
+    D3 -- No --> REPETIR
+    REPETIR --> D4
+
+    D4 -- No --> E03
+    E03 --> D6
+
+    D4 -- Sí --> A6
+    A6 --> NOTIFICAR
+    NOTIFICAR --> DEV1
+    DEV1 --> DEV2
+    DEV2 --> A7
+
+    A7 --> HIS2
+    HIS2 --> EVID2
+    EVID2 --> D5
+
+    D5 -- Sí --> CERRAR
+    CERRAR --> D6
+
+    D5 -- No --> E04
+    E04 --> D6
+
+    D6 -- Sí --> A4
+    D6 -- No --> A8
+
+    A8 --> REV
+    REV --> FIN
+
+    style E01 fill:#fff1f1,stroke:#b42318
+    style E02 fill:#fff1f1,stroke:#b42318
+    style E03 fill:#fff1f1,stroke:#b42318
+    style E04 fill:#fff1f1,stroke:#b42318

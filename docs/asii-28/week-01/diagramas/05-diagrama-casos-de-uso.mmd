@@ -1,0 +1,42 @@
+%% ASII-28 - Semana 1: casos de uso
+%%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#f0f8ff','primaryBorderColor':'#00407a','lineColor':'#333333','fontFamily':'Arial'}}}%%
+flowchart LR
+    QA((Analista QA))
+    DEV((Responsable<br/>del módulo))
+    REV((Revisor<br/>de calidad))
+    HIS((HIS bajo<br/>prueba))
+
+    subgraph MOD["ASII-28: Gestión de campañas de regresión y defectos"]
+        direction TB
+
+        CU01([CU-01 Diseñar y vincular casos manuales])
+        CU02([CU-02 Planificar campaña de regresión])
+        CU03([CU-03 Validar precondiciones])
+        CU04([CU-04 Ejecutar campaña de regresión])
+        CU05([CU-05 Registrar resultado y evidencia])
+        CU06([CU-06 Gestionar defecto reproducible])
+        CU07([CU-07 Re-probar una corrección])
+        CU08([CU-08 Consultar trazabilidad y cerrar campaña])
+    end
+
+    QA --- CU01
+    QA --- CU02
+    QA --- CU03
+    QA --- CU04
+    QA --- CU05
+    QA --- CU06
+    QA --- CU07
+    QA --- CU08
+
+    DEV --- CU06
+    DEV --- CU07
+    REV --- CU08
+    HIS --- CU04
+    HIS --- CU07
+
+    CU04 -.->|include| CU03
+    CU04 -.->|include| CU05
+    CU06 -.->|extend: fallo reproducible| CU04
+    CU07 -.->|include| CU05
+
+    style MOD fill:#f7fbff,stroke:#00407a,stroke-width:2px
