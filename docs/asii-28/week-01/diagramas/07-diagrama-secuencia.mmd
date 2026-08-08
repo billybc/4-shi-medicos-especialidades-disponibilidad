@@ -1,0 +1,84 @@
+%% ASII-28 - Semana 1: secuencia
+sequenceDiagram
+    actor QA as Analista QA
+    participant GQA as Gestor QA
+    participant HIS as HIS bajo prueba
+    participant EVID as Repositorio de evidencia
+    actor DEV as Responsable del módulo
+    actor REV as Revisor de calidad
+
+    Note over QA,REV: Solo se utilizan datos ficticios y no identificables
+
+    QA->>GQA: MSG-01 Registrar caso manual
+    GQA->>GQA: VAL-01 Validar requisito, pasos y resultado esperado
+
+    alt E-02 Caso incompleto
+        GQA-->>QA: Rechazar caso e indicar campos faltantes
+        QA->>GQA: Completar y volver a enviar el caso
+        GQA->>GQA: Revalidar trazabilidad
+        GQA-->>QA: Caso aceptado
+    else Caso válido
+        GQA-->>QA: Caso aceptado
+    end
+
+    QA->>GQA: MSG-02 Crear campaña con versión, ambiente y alcance
+    GQA->>GQA: VAL-02 Validar precondiciones
+
+    alt E-01 Precondiciones incompletas
+        GQA->>GQA: Registrar campaña como BLOQUEADA
+        GQA-->>QA: Informar causa del bloqueo
+    else Campaña válida
+        GQA-->>QA: Confirmar campaña activa
+
+        loop Por cada caso aplicable
+            QA->>GQA: MSG-03 Iniciar ejecución del caso
+            GQA->>GQA: VAL-03 Validar que el caso sea aplicable
+            GQA-->>QA: Autorizar ejecución
+
+            QA->>HIS: MSG-04 Ejecutar pasos con datos ficticios
+            HIS-->>QA: Devolver resultado observado
+
+            QA->>GQA: MSG-05 Registrar resultado observado
+            GQA->>EVID: MSG-06 Conservar evidencia y metadatos
+            EVID-->>GQA: Confirmar identificador de evidencia
+
+            alt Resultado esperado
+                GQA->>GQA: Marcar ejecución como APROBADA
+                GQA-->>QA: Confirmar resultado
+            else Resultado diferente
+                QA->>HIS: MSG-07 Repetir condiciones relevantes
+                HIS-->>QA: Devolver segundo resultado
+
+                alt E-03 Fallo no reproducible
+                    QA->>GQA: Registrar bloqueo y causa
+                    GQA-->>QA: Marcar ejecución como BLOQUEADA
+                else Fallo reproducible
+                    QA->>GQA: MSG-08 Crear defecto trazable
+                    GQA->>GQA: VAL-04 Validar caso, ejecución y evidencia
+                    GQA->>DEV: MSG-09 Notificar defecto
+
+                    DEV->>GQA: MSG-10 Notificar versión corregida
+                    GQA-->>QA: Informar corrección disponible
+
+                    QA->>HIS: MSG-11 Re-probar caso corregido
+                    HIS-->>QA: Devolver resultado de re-prueba
+
+                    QA->>GQA: MSG-12 Registrar re-prueba
+                    GQA->>EVID: Conservar nueva evidencia
+                    EVID-->>GQA: Confirmar evidencia de re-prueba
+
+                    alt Corrección verificada
+                        GQA->>GQA: Cerrar defecto
+                        GQA-->>DEV: Confirmar cierre
+                    else E-04 Fallo persistente
+                        GQA->>GQA: Reabrir defecto con nueva evidencia
+                        GQA-->>DEV: Informar reapertura
+                    end
+                end
+            end
+        end
+
+        GQA->>GQA: MSG-13 Calcular cobertura y cerrar campaña
+        REV->>GQA: MSG-14 Consultar trazabilidad
+        GQA-->>REV: Entregar resumen, defectos y evidencias
+    end
