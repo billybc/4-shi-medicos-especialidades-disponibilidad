@@ -1,0 +1,37 @@
+sequenceDiagram
+    actor Usuario
+    participant Browser as Navegador
+    participant Controller as DoctorAvailabilityController
+    participant Service as AvailabilityService
+    participant Repo as PdoDoctorAvailabilityRepository
+    participant DB as SQLite
+
+    Usuario->>Browser: Abrir /medicos-vanilla/public
+    Browser->>Controller: GET request
+    Controller->>Service: dashboard(doctorId)
+    Service->>Repo: allDoctors()
+    Repo->>DB: SELECT doctors
+    DB-->>Repo: filas demo
+    Repo-->>Service: lista de medicos
+    Service->>Repo: schedule(doctorId)
+    Repo->>DB: SELECT slots
+    DB-->>Repo: bloques disponibles
+    Repo-->>Service: lista de bloques
+    Service-->>Controller: payload para vista
+    Controller-->>Browser: HTML renderizado
+
+    Usuario->>Browser: Enviar formulario de disponibilidad
+    Browser->>Controller: POST request
+    Controller->>Service: registerAvailability(datos)
+    Service->>Repo: findDoctor + hasOverlap
+    Repo->>DB: consultas de validacion
+    DB-->>Repo: resultado
+    alt horario valido
+        Service->>Repo: saveSlot(...)
+        Repo->>DB: INSERT slot
+        DB-->>Repo: id nuevo
+        Service-->>Controller: mensaje OK
+    else horario cruzado o dato invalido
+        Service-->>Controller: error especifico
+    end
+    Controller-->>Browser: Vista con exito o error

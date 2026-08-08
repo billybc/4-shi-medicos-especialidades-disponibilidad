@@ -1,0 +1,26 @@
+flowchart LR
+    subgraph Presentacion
+        UI[Browser / public/index.php]
+        C[DoctorAvailabilityController]
+    end
+
+    subgraph Aplicacion
+        S[AvailabilityService]
+    end
+
+    subgraph Dominio
+        D1[Doctor]
+        D2[AvailabilitySlot]
+        R[DoctorAvailabilityRepositoryInterface]
+    end
+
+    subgraph Persistencia
+        P[PdoDoctorAvailabilityRepository]
+        X[SqliteConnection]
+        DB[(SQLite medicos.sqlite)]
+    end
+
+    UI --> C --> S --> R
+    S --> D1
+    S --> D2
+    R --> P --> X --> DB
