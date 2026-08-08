@@ -1,0 +1,239 @@
+:root {
+    color-scheme: light;
+    --bg: #f5f7fb;
+    --surface: rgba(255, 255, 255, 0.84);
+    --surface-strong: #ffffff;
+    --text: #10233c;
+    --muted: #5c6a7f;
+    --accent: #0b7285;
+    --accent-strong: #0f9fb3;
+    --success: #157f3b;
+    --error: #b42318;
+    --border: rgba(16, 35, 60, 0.1);
+    --shadow: 0 24px 70px rgba(16, 35, 60, 0.12);
+    font-family: Inter, "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top left, rgba(11, 114, 133, 0.14), transparent 28%),
+        radial-gradient(circle at top right, rgba(15, 159, 179, 0.12), transparent 24%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 55%, #eef3f9 100%);
+}
+
+.shell {
+    width: min(1180px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 32px 0 48px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.7fr 0.9fr;
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 20px;
+}
+
+.eyebrow {
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 1.02;
+    max-width: 12ch;
+}
+
+.lede {
+    margin: 16px 0 0;
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: 1.02rem;
+    line-height: 1.7;
+}
+
+.hero-card,
+.panel,
+.metrics article,
+.flash {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+}
+
+.hero-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+    min-height: 100%;
+}
+
+.hero-card span,
+.metrics span {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.hero-card strong,
+.metrics strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.5rem;
+}
+
+.hero-card small {
+    margin-top: 8px;
+    color: var(--muted);
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.metrics article,
+.panel {
+    padding: 20px;
+}
+
+.flash {
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.flash-success { color: var(--success); }
+.flash-error { color: var(--error); }
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+form {
+    display: grid;
+    gap: 14px;
+}
+
+label {
+    display: grid;
+    gap: 8px;
+    font-size: 0.92rem;
+    color: var(--muted);
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    border-radius: 14px;
+}
+
+input,
+select,
+textarea {
+    border: 1px solid rgba(16, 35, 60, 0.16);
+    background: var(--surface-strong);
+    color: var(--text);
+    padding: 12px 14px;
+}
+
+textarea { resize: vertical; }
+
+button {
+    justify-self: start;
+    border: 0;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.two-cols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.filter-row {
+    margin-bottom: 14px;
+}
+
+.doctor-card {
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    background: rgba(11, 114, 133, 0.08);
+}
+
+.doctor-card strong,
+.slot strong { color: var(--text); }
+
+.doctor-card span,
+.doctor-card small,
+.slot small,
+.slot p,
+.empty {
+    color: var(--muted);
+}
+
+.schedule-list {
+    display: grid;
+    gap: 12px;
+}
+
+.slot {
+    display: grid;
+    gap: 6px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(16, 35, 60, 0.08);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.slot-badge {
+    justify-self: start;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.slot-disponible { background: rgba(21, 127, 59, 0.1); color: var(--success); }
+.slot-ocupado { background: rgba(180, 35, 24, 0.1); color: var(--error); }
+.slot-bloqueado { background: rgba(92, 106, 127, 0.14); color: var(--muted); }
+
+.empty {
+    margin: 0;
+    padding: 12px 0 0;
+}
+
+@media (max-width: 920px) {
+    .hero,
+    .grid,
+    .metrics,
+    .two-cols {
+        grid-template-columns: 1fr;
+    }
+}
