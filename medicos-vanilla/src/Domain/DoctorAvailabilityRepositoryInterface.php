@@ -22,6 +22,8 @@ interface DoctorAvailabilityRepositoryInterface
 
     public function hasOverlap(int $doctorId, string $availabilityDate, string $startTime, string $endTime): bool;
 
+    public function saveDoctor(string $fullName, string $specialty, string $licenseNumber): int;
+    
     public function saveSlot(
         int $doctorId,
         string $availabilityDate,

@@ -14,6 +14,19 @@ final class PdoDoctorAvailabilityRepository implements DoctorAvailabilityReposit
     public function __construct(private PDO $pdo)
     {
     }
+    public function saveDoctor(string $fullName, string $specialty, string $licenseNumber): int
+{
+        $stmt = $this->pdo->prepare(
+        'INSERT INTO doctors (full_name, specialty, license_number) VALUES (:full_name, :specialty, :license_number)'
+     );
+        $stmt->execute([
+        ':full_name' => $fullName,
+        ':specialty' => $specialty,
+        ':license_number' => $licenseNumber,
+    ]);
+
+    return (int) $this->pdo->lastInsertId();
+}
 
     public function allDoctors(): array
     {

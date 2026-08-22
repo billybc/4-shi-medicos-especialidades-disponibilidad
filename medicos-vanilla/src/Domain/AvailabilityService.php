@@ -11,7 +11,21 @@ final class AvailabilityService
 {
     public function __construct(private DoctorAvailabilityRepositoryInterface $repository)
     {
+
     }
+
+    public function registerDoctor(array $input): int
+    {
+        $fullName = trim((string) ($input['full_name'] ?? ''));
+        $specialty = trim((string) ($input['specialty'] ?? ''));
+        $licenseNumber = trim((string) ($input['license_number'] ?? ''));
+
+        if ($fullName === '' || $specialty === '' || $licenseNumber === '') {
+            throw new \InvalidArgumentException('Todos los campos del médico son obligatorios.');
+        }
+
+    return $this->repository->saveDoctor($fullName, $specialty, $licenseNumber);
+}
 
     public function dashboard(?int $doctorId = null): array
     {

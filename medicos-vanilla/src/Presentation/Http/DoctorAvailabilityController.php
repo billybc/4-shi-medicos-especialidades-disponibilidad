@@ -32,6 +32,15 @@ final class DoctorAvailabilityController
                 ];
             }
         }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_GET['action'] ?? '') === 'register_doctor') {
+        $this->service->registerDoctor([
+        'full_name' => $_POST['full_name'] ?? '',
+        'specialty' => $_POST['specialty'] ?? '',
+        'license_number' => $_POST['license_number'] ?? '',
+        ]);
+        header('Location: /');
+        exit;
+}
 
         $doctorId = isset($get['doctor_id']) && $get['doctor_id'] !== '' ? (int) $get['doctor_id'] : null;
 
@@ -41,4 +50,5 @@ final class DoctorAvailabilityController
             'formDoctorId' => $doctorId,
         ];
     }
+    
 }

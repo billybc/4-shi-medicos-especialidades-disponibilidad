@@ -73,6 +73,25 @@ $selectedDoctorId = $selectedDoctor?->id ?? '';
     <section class="grid">
         <article class="panel">
             <h2>Registrar disponibilidad</h2>
+
+
+            <!-- Formulario de Registro de Médico -->
+        <form action="/?action=register_doctor" method="POST" class="card">
+            <h3>Registrar Nuevo Médico</h3>
+    
+            <label>Nombre Completo</label>
+            <input type="text" name="full_name" required placeholder="Ej. Dr. Juan Pérez">
+
+            <label>Especialidad</label>
+            <input type="text" name="specialty" required placeholder="Ej. Pediatría">
+
+            <label>No. Licencia / Colegiado</label>
+            <input type="text" name="license_number" required placeholder="Ej. MED-2026">
+
+                    <button type="submit">Guardar Médico</button>
+        </form>
+
+
             <form method="post">
                 <label>
                     Medico
