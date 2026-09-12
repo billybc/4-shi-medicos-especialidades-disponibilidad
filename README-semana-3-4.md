@@ -1,0 +1,1 @@
+# Entrega Semana 3 y 4 - Módulo Médicos Estudiante: Billy Eduardo Cardona López Semana 3: capas Presentation/Application/Domain/Persistence del Micro-HIS Médicos. Semana 4: interfaz Repository con adaptadores PDO e InMemory, controlador sin SQL ni reglas de negocio. Guarda el archivo.
