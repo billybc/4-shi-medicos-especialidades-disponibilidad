@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use Illuminate\Support\Facades\Route;
+// routes/api.php
+use App\Http\Controllers\ChatbotController;
 
+Route::post('/chatbot/consulta', [ChatbotController::class, 'responder']);
 Route::middleware('tenant')->group(function (): void {
     Route::post('/auth/register', [AuthController::class, 'register']);
     Route::post('/auth/login', [AuthController::class, 'login']);
