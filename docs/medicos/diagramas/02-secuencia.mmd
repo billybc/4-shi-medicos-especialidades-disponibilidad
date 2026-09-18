@@ -1,37 +1,17 @@
 sequenceDiagram
-    actor Usuario
-    participant Browser as Navegador
-    participant Controller as DoctorAvailabilityController
-    participant Service as AvailabilityService
-    participant Repo as PdoDoctorAvailabilityRepository
-    participant DB as SQLite
+    participant C as Cliente
+    participant P as DoctorAvailabilityController
+    participant A as AvailabilityService
+    participant R as DoctorAvailabilityRepositoryInterface
+    participant DB as Base de datos
 
-    Usuario->>Browser: Abrir /medicos-vanilla/public
-    Browser->>Controller: GET request
-    Controller->>Service: dashboard(doctorId)
-    Service->>Repo: allDoctors()
-    Repo->>DB: SELECT doctors
-    DB-->>Repo: filas demo
-    Repo-->>Service: lista de medicos
-    Service->>Repo: schedule(doctorId)
-    Repo->>DB: SELECT slots
-    DB-->>Repo: bloques disponibles
-    Repo-->>Service: lista de bloques
-    Service-->>Controller: payload para vista
-    Controller-->>Browser: HTML renderizado
+    C->>P: POST /api/v1/doctors/1/availability {date, startTime, endTime}
+    P->>A: registerAvailability(datos)
+    A->>R: hasOverlap(doctorId, date, startTime, endTime)
+    R->>DB: consulta bloques existentes del médico
+    DB-->>R: bloques encontrados
+    R-->>A: true (existe solapamiento)
+    A-->>P: lanza RuntimeException "availability_overlap"
+    P-->>C: 409 Conflict {error, message}
 
-    Usuario->>Browser: Enviar formulario de disponibilidad
-    Browser->>Controller: POST request
-    Controller->>Service: registerAvailability(datos)
-    Service->>Repo: findDoctor + hasOverlap
-    Repo->>DB: consultas de validacion
-    DB-->>Repo: resultado
-    alt horario valido
-        Service->>Repo: saveSlot(...)
-        Repo->>DB: INSERT slot
-        DB-->>Repo: id nuevo
-        Service-->>Controller: mensaje OK
-    else horario cruzado o dato invalido
-        Service-->>Controller: error especifico
-    end
-    Controller-->>Browser: Vista con exito o error
+    Note over A,R: Si no hay solapamiento, A llama a R.saveSlot(...)\ny P responde 201 Created con el bloque guardado.
