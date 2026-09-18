@@ -31,9 +31,11 @@ El parcial se resuelve como una aplicacion monolitica pequena, ejecutable en loc
 - Ejecuta las consultas SQL.
 - Inicializa schema y datos ficticios.
 
-## Monolito o frontera distribuida
+## Monolito y frontera distribuida evaluada
 
-Se elige monolito. Para este parcial no hay necesidad de microservicios ni de una frontera distribuida, porque el alcance es pequeno, la ejecucion debe ser local y el costo de coordinacion superaria el valor pedagogico. La frontera queda en capas internas, no en servicios remotos.
+Se inicia con un monolito modular expuesto como API REST. Esta decision conserva la ejecucion local y evita introducir complejidad distribuida antes de tener una necesidad medible.
+
+La frontera candidata es `Availability Service`, responsable de crear y consultar bloques y validar solapamientos. No se extrae en esta etapa: se evaluara cuando existan varios consumidores, una carga que requiera escalamiento independiente o una necesidad real de despliegue separado. El contrato y la responsabilidad quedan documentados para permitir una migracion gradual.
 
 ## Contrato de repositorio
 
