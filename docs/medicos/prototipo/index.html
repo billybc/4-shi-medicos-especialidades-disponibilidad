@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prototipo | Médicos y disponibilidad</title>
+  <link rel="stylesheet" href="prototipo.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Sistema Hospitalario Integrado</p>
+        <h1>Médicos y disponibilidad</h1>
+      </div>
+      <span class="role-badge">Administrador</span>
+    </header>
+
+    <section class="toolbar" aria-label="Acciones de médicos">
+      <label class="search-label" for="search">Buscar médico
+        <input id="search" type="search" placeholder="Nombre o licencia" data-search>
+      </label>
+      <label for="specialty">Especialidad
+        <select id="specialty" data-filter>
+          <option value="all">Todas</option>
+          <option value="internal">Medicina Interna</option>
+          <option value="cardio">Cardiología</option>
+        </select>
+      </label>
+      <button class="primary" type="button" data-view="register">+ Registrar médico</button>
+    </section>
+
+    <div class="notice" role="status" aria-live="polite" data-notice>Selecciona un médico para consultar su agenda.</div>
+
+    <section class="content-grid">
+      <section class="panel" aria-labelledby="doctors-title">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">Directorio</p>
+            <h2 id="doctors-title">Médicos registrados</h2>
+          </div>
+          <span class="count">2 activos</span>
+        </div>
+        <div class="doctor-list" data-doctors>
+          <button class="doctor-row is-selected" type="button" data-doctor="andrea" data-specialty="internal">
+            <span class="avatar">AL</span>
+            <span><strong>Andrea Lopez</strong><small>Medicina Interna · MED-0001</small></span>
+            <span class="row-action">Ver agenda</span>
+          </button>
+          <button class="doctor-row" type="button" data-doctor="carlos" data-specialty="cardio">
+            <span class="avatar avatar-blue">CM</span>
+            <span><strong>Carlos Mejia</strong><small>Cardiología · MED-0002</small></span>
+            <span class="row-action">Ver agenda</span>
+          </button>
+          <p class="empty-state" hidden data-empty>No encontramos médicos con ese filtro.</p>
+        </div>
+      </section>
+
+      <section class="panel detail-panel" aria-labelledby="detail-title">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">Detalle</p>
+            <h2 id="detail-title" data-doctor-name>Andrea Lopez</h2>
+          </div>
+          <button class="text-button" type="button" data-view="specialty">Asociar especialidad</button>
+        </div>
+        <p class="muted" data-doctor-specialty>Medicina Interna · Licencia MED-0001</p>
+        <div class="date-bar">
+          <label for="date">Fecha de consulta
+            <input id="date" type="date" value="2026-09-21" data-date>
+          </label>
+          <button class="primary" type="button" data-check>Consultar</button>
+        </div>
+        <div class="schedule" data-schedule>
+          <article class="slot-card"><span class="time">08:00 - 12:00</span><span class="status available">Disponible</span><small>Consulta externa</small></article>
+          <article class="slot-card"><span class="time">14:00 - 16:00</span><span class="status blocked">Bloqueado</span><small>Reunión institucional</small></article>
+        </div>
+        <p class="empty-state" hidden data-no-slots>No hay bloques para esta fecha.</p>
+        <button class="secondary" type="button" data-view="availability">+ Registrar disponibilidad</button>
+      </section>
+    </section>
+
+    <section class="panel form-panel" data-form-panel hidden aria-labelledby="form-title">
+      <div class="panel-heading"><div><p class="section-kicker">Prototipo</p><h2 id="form-title">Registrar disponibilidad</h2></div><button class="icon-button" type="button" aria-label="Cerrar formulario" data-close>×</button></div>
+      <form data-availability-form novalidate>
+        <div class="form-grid">
+          <label for="form-doctor">Médico<select id="form-doctor"><option>Andrea Lopez</option><option>Carlos Mejia</option></select></label>
+          <label for="form-date">Fecha<input id="form-date" type="date" value="2026-09-21"></label>
+          <label for="start">Inicio<input id="start" type="time" value="10:00"></label>
+          <label for="end">Fin<input id="end" type="time" value="13:00"></label>
+        </div>
+        <div class="conflict" hidden data-conflict role="alert"><strong>No se puede guardar este horario.</strong><span>Se cruza con el bloque existente de 08:00 a 12:00.</span><button type="button" class="text-button" data-fix>Revisar horario</button></div>
+        <div class="form-actions"><button class="secondary" type="button" data-close>Cancelar</button><button class="primary" type="submit">Guardar disponibilidad</button></div>
+      </form>
+    </section>
+
+    <section class="panel form-panel" data-specialty-panel hidden aria-labelledby="specialty-title">
+      <div class="panel-heading"><div><p class="section-kicker">Catálogo</p><h2 id="specialty-title">Asociar especialidad</h2></div><button class="icon-button" type="button" aria-label="Cerrar formulario" data-close-specialty>×</button></div>
+      <form data-specialty-form><label for="new-specialty">Especialidad<select id="new-specialty"><option>Cardiología</option><option>Pediatría</option></select></label><div class="form-actions"><button class="secondary" type="button" data-close-specialty>Cancelar</button><button class="primary" type="submit">Asociar especialidad</button></div></form>
+    </section>
+  </main>
+  <script>
+    const doctors = document.querySelectorAll('[data-doctor]');
+    const notice = document.querySelector('[data-notice]');
+    const formPanel = document.querySelector('[data-form-panel]');
+    const specialtyPanel = document.querySelector('[data-specialty-panel]');
+    const conflict = document.querySelector('[data-conflict]');
+    const search = document.querySelector('[data-search]');
+    const filter = document.querySelector('[data-filter]');
+    const empty = document.querySelector('[data-empty]');
+
+    function openView(view) {
+      formPanel.hidden = view !== 'availability';
+      specialtyPanel.hidden = view !== 'specialty';
+      if (view === 'register') notice.textContent = 'El registro de médico se abriría en esta vista protegida.';
+      if (view === 'availability') { conflict.hidden = true; notice.textContent = 'Completa el horario. El servidor validará conflictos antes de guardar.'; }
+      if (view === 'specialty') notice.textContent = 'Selecciona una especialidad para asociarla al médico seleccionado.';
+    }
+
+    document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => openView(button.dataset.view)));
+    document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', () => openView('none')));
+    document.querySelector('[data-close-specialty]').addEventListener('click', () => openView('none'));
+    document.querySelectorAll('[data-close-specialty]').forEach(button => button.addEventListener('click', () => openView('none')));
+
+    doctors.forEach(doctor => doctor.addEventListener('click', () => {
+      doctors.forEach(item => item.classList.remove('is-selected'));
+      doctor.classList.add('is-selected');
+      document.querySelector('[data-doctor-name]').textContent = doctor.dataset.doctor === 'carlos' ? 'Carlos Mejia' : 'Andrea Lopez';
+      document.querySelector('[data-doctor-specialty]').textContent = doctor.dataset.doctor === 'carlos' ? 'Cardiología · Licencia MED-0002' : 'Medicina Interna · Licencia MED-0001';
+      notice.textContent = 'Médico seleccionado. Consulta una fecha para ver su disponibilidad.';
+    }));
+
+    function filterDoctors() {
+      const query = search.value.toLowerCase(); let visible = 0;
+      doctors.forEach(doctor => { const matches = doctor.textContent.toLowerCase().includes(query) && (filter.value === 'all' || doctor.dataset.specialty === filter.value); doctor.hidden = !matches; if (matches) visible++; });
+      empty.hidden = visible !== 0;
+    }
+    search.addEventListener('input', filterDoctors); filter.addEventListener('change', filterDoctors);
+    document.querySelector('[data-check]').addEventListener('click', () => { notice.textContent = 'Disponibilidad consultada correctamente.'; });
+    document.querySelector('[data-availability-form]').addEventListener('submit', event => {
+      event.preventDefault();
+      const start = document.querySelector('#start').value;
+      const end = document.querySelector('#end').value;
+      const overlapsExisting = start < '12:00' && end > '08:00';
+
+      if (overlapsExisting) {
+        conflict.hidden = false;
+        notice.textContent = 'Corrige el conflicto antes de guardar.';
+        conflict.querySelector('[data-fix]').focus();
+        return;
+      }
+
+      conflict.hidden = true;
+      notice.textContent = 'Disponibilidad guardada correctamente.';
+    });
+    document.querySelector('[data-fix]').addEventListener('click', () => { document.querySelector('#start').focus(); notice.textContent = 'Cambia la hora inicial o final y vuelve a guardar.'; });
+    document.querySelector('[data-specialty-form]').addEventListener('submit', event => { event.preventDefault(); openView('none'); notice.textContent = 'Especialidad asociada correctamente.'; });
+  </script>
+</body>
+</html>
