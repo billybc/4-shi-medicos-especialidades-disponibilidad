@@ -137,7 +137,22 @@
     }
     search.addEventListener('input', filterDoctors); filter.addEventListener('change', filterDoctors);
     document.querySelector('[data-check]').addEventListener('click', () => { notice.textContent = 'Disponibilidad consultada correctamente.'; });
-    document.querySelector('[data-availability-form]').addEventListener('submit', event => { event.preventDefault(); conflict.hidden = false; notice.textContent = 'Corrige el conflicto antes de guardar.'; conflict.querySelector('[data-fix]').focus(); });
+    document.querySelector('[data-availability-form]').addEventListener('submit', event => {
+      event.preventDefault();
+      const start = document.querySelector('#start').value;
+      const end = document.querySelector('#end').value;
+      const overlapsExisting = start < '12:00' && end > '08:00';
+
+      if (overlapsExisting) {
+        conflict.hidden = false;
+        notice.textContent = 'Corrige el conflicto antes de guardar.';
+        conflict.querySelector('[data-fix]').focus();
+        return;
+      }
+
+      conflict.hidden = true;
+      notice.textContent = 'Disponibilidad guardada correctamente.';
+    });
     document.querySelector('[data-fix]').addEventListener('click', () => { document.querySelector('#start').focus(); notice.textContent = 'Cambia la hora inicial o final y vuelve a guardar.'; });
     document.querySelector('[data-specialty-form]').addEventListener('submit', event => { event.preventDefault(); openView('none'); notice.textContent = 'Especialidad asociada correctamente.'; });
   </script>
