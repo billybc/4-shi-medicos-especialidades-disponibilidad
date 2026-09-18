@@ -1,26 +1,22 @@
-flowchart LR
-    subgraph Presentacion
-        UI[Browser / public/index.php]
-        C[DoctorAvailabilityController]
+flowchart TB
+    subgraph Cliente
+        Web[Cliente web / consumidor API]
     end
 
-    subgraph Aplicacion
-        S[AvailabilityService]
+    subgraph "Micro-HIS Médicos (monolito modular)"
+        direction TB
+        Presentation["Presentation\nDoctorAvailabilityController (HTTP)"]
+        Application["Application\nAvailabilityService"]
+        Domain["Domain\nDoctor, AvailabilitySlot,\nDoctorAvailabilityRepositoryInterface"]
+        Persistence["Persistence\nPdoDoctorAvailabilityRepository\nInMemoryDoctorAvailabilityRepository"]
     end
 
-    subgraph Dominio
-        D1[Doctor]
-        D2[AvailabilitySlot]
-        R[DoctorAvailabilityRepositoryInterface]
-    end
+    DB[(SQLite / base del HIS)]
+    Otros[Otros módulos del SHI\nej. Citas]
 
-    subgraph Persistencia
-        P[PdoDoctorAvailabilityRepository]
-        X[SqliteConnection]
-        DB[(SQLite medicos.sqlite)]
-    end
-
-    UI --> C --> S --> R
-    S --> D1
-    S --> D2
-    R --> P --> X --> DB
+    Web -->|"HTTP JSON /api/v1"| Presentation
+    Presentation --> Application
+    Application --> Domain
+    Application --> Persistence
+    Persistence --> DB
+    Otros -->|"consulta vía API, nunca directo a la BD"| Presentation
