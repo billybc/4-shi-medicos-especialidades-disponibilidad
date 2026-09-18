@@ -1,0 +1,49 @@
+flowchart TB
+    subgraph Frontend[Frontend - componentes de interfaz]
+        DoctorView[DoctorListView]
+        DoctorForm[DoctorForm]
+        SpecialtyForm[SpecialtyAssignmentForm]
+        AvailabilityForm[AvailabilityForm]
+        Timeline[AvailabilityTimeline]
+        Feedback[FeedbackBanner]
+        Client[ApiClient]
+    end
+
+    subgraph Backend[Backend - API y aplicacion]
+        DoctorController[DoctorController]
+        SpecialtyController[SpecialtyController]
+        AvailabilityController[AvailabilityController]
+        DoctorService[DoctorRegistrationService]
+        SpecialtyService[SpecialtyAssignmentService]
+        AvailabilityService[AvailabilityService]
+    end
+
+    subgraph Domain[Dominio y persistencia]
+        Entities[Doctor / Specialty / AvailabilitySlot]
+        Contract[DoctorAvailabilityRepositoryInterface]
+        Pdo[PdoDoctorAvailabilityRepository]
+        Memory[InMemoryDoctorAvailabilityRepository]
+        DB[(SQLite)]
+    end
+
+    DoctorView --> DoctorForm
+    DoctorForm --> Client
+    SpecialtyForm --> Client
+    AvailabilityForm --> Client
+    Client --> DoctorController
+    Client --> SpecialtyController
+    Client --> AvailabilityController
+    DoctorController --> DoctorService
+    SpecialtyController --> SpecialtyService
+    AvailabilityController --> AvailabilityService
+    DoctorService --> Contract
+    SpecialtyService --> Contract
+    AvailabilityService --> Contract
+    AvailabilityService --> Entities
+    Contract --> Pdo
+    Contract --> Memory
+    Pdo --> DB
+    AvailabilityController --> Feedback
+    DoctorController --> Feedback
+    SpecialtyController --> Feedback
+    Timeline --> Client
