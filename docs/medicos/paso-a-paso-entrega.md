@@ -164,3 +164,27 @@ Responde estas cuatro preguntas:
 2. ¿Por qué no microservicio todavía? Porque el costo distribuido no se justifica sin métricas.
 3. ¿Dónde se valida el conflicto? En el servidor, dentro del servicio de aplicación y el Repository.
 4. ¿Qué cambia si cambia SQLite? Solo el adaptador Repository; el caso de uso conserva su contrato.
+
+## Paso 11 - Entrega de semanas 7 a 11
+
+Los archivos nuevos ya están organizados en `docs/medicos`:
+
+- Semana 7: `semana-07-componentes-refactor.md` y `diagramas/03-componentes-semana-07.mmd`.
+- Semana 8: `semana-08-flujo-ux-wireframes.md`.
+- Semana 9: `semana-09-usabilidad-accesibilidad.md`.
+- Semana 10: `semana-10-diseno-movil.md`.
+- Semana 11: `semana-11-prototipo-navegable.md` y `prototipo/`.
+
+Para probar el prototipo, abre `docs/medicos/prototipo/index.html` en el navegador. Selecciona un médico, consulta la agenda, abre `Registrar disponibilidad` y pulsa `Guardar disponibilidad` para mostrar el error crítico de solapamiento. Después prueba la misma pantalla con el navegador en 320 px y 390 px.
+
+Para publicar solamente esta nueva entrega:
+
+```powershell
+git status --short
+git diff --check
+git add docs/medicos
+git commit -m "docs: agregar diseno UX movil y prototipo de medicos"
+git push
+```
+
+El commit debe incluir los documentos de semanas 7 a 11 y el prototipo, pero no `jsconfig.json` ni `package-lock.json` si siguen siendo cambios ajenos.
